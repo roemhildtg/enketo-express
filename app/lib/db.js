@@ -1,5 +1,6 @@
 const redis = require('redis');
 const config = require('../models/config-model').server;
+const debug = require('debug')('enketo:redis');
 
 const mainClient = redis.createClient(
     config.redis.main.port,
@@ -20,6 +21,9 @@ const cacheClient = redis.createClient(
         tls: config.redis.cache.host.tls,
     }
 );
+
+cacheClient.on('error', (err) => debug('Redis Cache Client Error', err));
+mainClient.on('error', (err) => debug('Redis Main Client Error', err));
 
 module.exports = {
     mainClient,
