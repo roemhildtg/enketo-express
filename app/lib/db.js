@@ -6,6 +6,8 @@ const mainClient = redis.createClient(
     config.redis.main.host,
     {
         auth_pass: config.redis.main.password,
+        prefix: config.redis.main.prefix,
+        tls: config.redis.main.host.tls,
     }
 );
 
@@ -14,6 +16,8 @@ const cacheClient = redis.createClient(
     config.redis.cache.host,
     {
         auth_pass: config.redis.cache.password,
+        prefix: config.redis.cache.prefix,
+        tls: config.redis.cache.host.tls,
     }
 );
 
